@@ -1,6 +1,7 @@
 package com.teamvoy.task.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,7 @@ public class OrderEntity {
     private Boolean incoming;
 
     public OrderEntity() {
+        orderList = new ArrayList<>();
     }
 
     public UserEntity getUser() {
