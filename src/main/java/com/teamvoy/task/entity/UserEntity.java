@@ -10,6 +10,7 @@ public class UserEntity {
     private Long id;
     private String userName;
     private String password;
+    private Boolean manager;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<OrderEntity> orders;
 
