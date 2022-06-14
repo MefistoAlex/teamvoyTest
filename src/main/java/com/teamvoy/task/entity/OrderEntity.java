@@ -18,6 +18,30 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public List<StorageEntity> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<StorageEntity> orderList) {
+        this.orderList = orderList;
+    }
+
+    public Boolean getIncoming() {
+        return incoming;
+    }
+
+    public void setIncoming(Boolean incoming) {
+        this.incoming = incoming;
+    }
+
     public Long getId() {
         return id;
     }
