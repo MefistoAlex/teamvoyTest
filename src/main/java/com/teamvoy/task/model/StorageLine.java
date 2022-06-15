@@ -6,8 +6,17 @@ public class StorageLine {
 
     private PhoneEntity phone;
     private Long count;
+    private Double price;
 
     public StorageLine() {
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public PhoneEntity getPhone() {
