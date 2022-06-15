@@ -2,14 +2,12 @@ package com.teamvoy.task.service;
 
 import com.teamvoy.task.entity.OrderEntity;
 import com.teamvoy.task.entity.PhoneEntity;
+import com.teamvoy.task.entity.PriceEntity;
 import com.teamvoy.task.entity.StorageEntity;
 import com.teamvoy.task.model.Order;
 import com.teamvoy.task.model.OrderLine;
 import com.teamvoy.task.model.StorageLine;
-import com.teamvoy.task.repository.OrderRepository;
-import com.teamvoy.task.repository.PhoneRepository;
-import com.teamvoy.task.repository.StorageRepository;
-import com.teamvoy.task.repository.UserRepository;
+import com.teamvoy.task.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +25,8 @@ public class ManagerService {
     private OrderRepository orderRepository;
     @Autowired
     private StorageRepository storageRepository;
+    @Autowired
+    private PriseRepository priceRepository;
 
     public PhoneEntity addPhone(PhoneEntity phone) {
         //adding phone to DB
@@ -69,9 +69,24 @@ public class ManagerService {
             BigInteger id = (BigInteger) a[1];
             line.setCount(count.longValue());
             line.setPhone(phoneRepository.findById(id.longValue()).get());
+            line.setPrice(priceRepository.findTopByPhone(line.getPhone()).getPrice());
             storageLines.add(line);
         }
         return storageLines;
+    }
 
+    public List<PriceEntity> setPrices(List<PriceEntity> priceList) {
+        priceList = new ArrayList<>();
+        PriceEntity entity1 = new PriceEntity();
+        entity1.setPhone(phoneRepository.findById(3L).get());
+        entity1.setPrice(23.2D);
+        PriceEntity entity = new PriceEntity();
+        entity.setPhone(phoneRepository.findById(4L).get());
+        entity.setPrice(50.2D);
+
+        priceList.add(entity1);
+        priceList.add(entity);
+
+       return (List<PriceEntity>) priceRepository.saveAll(priceList);
     }
 }
