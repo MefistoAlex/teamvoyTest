@@ -15,8 +15,10 @@ import java.util.List;
 public class ManagerController {
     @Autowired
     private ManagerService managerService;
+
     @PostMapping("/add_phone")
     public ResponseEntity addPhone(@RequestBody PhoneEntity phone) {
+        //adding phones to DB
         try {
             managerService.addPhone(phone);
             return ResponseEntity.ok().body("Phone added successfully");
@@ -24,8 +26,10 @@ public class ManagerController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/price")
     public ResponseEntity setPrices(@RequestBody List<PriceEntity> priceList) {
+        //set price list for phones
         try {
             managerService.setPrices(priceList);
             return ResponseEntity.ok().body("Prises are set");
@@ -33,8 +37,10 @@ public class ManagerController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/order")
     public ResponseEntity incomingOrder(@RequestBody Order order) {
+        //adding goods and setting prises for manager
         try {
             managerService.incomingOrder(order);
             return ResponseEntity.ok().body("Incoming order added successfully");
@@ -42,8 +48,10 @@ public class ManagerController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/storage")
-    public ResponseEntity getStorageStock(){
+    public ResponseEntity getStorageStock() {
+        // viewing storage stocks with actual prices
         try {
             return ResponseEntity.ok().body(managerService.getStorageStock());
         } catch (Exception e) {
