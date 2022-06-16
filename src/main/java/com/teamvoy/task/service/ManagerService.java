@@ -78,7 +78,7 @@ public class ManagerService {
             BigInteger id = (BigInteger) a[1];
             line.setCount(count.longValue());
             line.setPhone(phoneRepository.findById(id.longValue()).get());
-            line.setPrice(priceRepository.findTopByPhoneId(line.getPhone().getId()).getPrice());
+            line.setPrice(getLastPrice(line.getPhone()));
             storageLines.add(line);
         }
         return storageLines;
@@ -86,5 +86,9 @@ public class ManagerService {
 
     public List<PriceEntity> setPrices(List<PriceEntity> priceList) {
        return (List<PriceEntity>) priceRepository.saveAll(priceList);
+    }
+    public Double getLastPrice(PhoneEntity phone){
+        List<PriceEntity> list = priceRepository.findByPhone_Id(phone.getId());
+        return list.get(list.size()-1).getPrice();
     }
 }
