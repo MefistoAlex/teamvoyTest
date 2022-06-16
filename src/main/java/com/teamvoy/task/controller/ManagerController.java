@@ -45,7 +45,6 @@ public class ManagerController {
     @GetMapping("/storage")
     public ResponseEntity getStorageStock(){
         try {
-            managerService.getStorageStock();
             return ResponseEntity.ok().body(managerService.getStorageStock());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
