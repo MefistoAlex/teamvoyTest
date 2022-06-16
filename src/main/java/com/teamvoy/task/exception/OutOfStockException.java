@@ -1,6 +1,7 @@
 package com.teamvoy.task.exception;
 
-public class OutOfStockException extends Exception{
+//exception when user ordering good which out of stock
+public class OutOfStockException extends Exception {
     public OutOfStockException(String message) {
         super(message);
     }
