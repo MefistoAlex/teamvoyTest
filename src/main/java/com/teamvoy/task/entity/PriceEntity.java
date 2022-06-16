@@ -3,6 +3,7 @@ package com.teamvoy.task.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "prises")
 public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
