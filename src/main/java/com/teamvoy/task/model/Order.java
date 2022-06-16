@@ -58,12 +58,10 @@ public class Order {
     public void setIncoming(Boolean incoming) {
         this.incoming = incoming;
     }
-
-    public Double getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(Double totalCost) {
-        this.totalCost = totalCost;
+    public void calculateTotalCost(){
+        totalCost = 0D;
+        for (OrderLine line:orderList){
+            totalCost+=line.getPrice();
+        }
     }
 }
