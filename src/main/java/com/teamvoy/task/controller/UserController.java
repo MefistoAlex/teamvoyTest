@@ -6,20 +6,18 @@ import com.teamvoy.task.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
-    @PostMapping
+    @PostMapping("/registration")
     public ResponseEntity registration(@RequestBody UserEntity user) {
         try {
-            userService.registration(user);
+
+           userService.registration(user);
             return ResponseEntity.ok().body("User added successfully");
         } catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -27,6 +25,20 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping
+    public ResponseEntity test() {
+        try {
+            UserEntity user = new UserEntity();
+            user.setManager(true);
+            user.setPassword("pass");
+            user.setUsername("manager");
+            return ResponseEntity.ok().body(user);
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }
 
 
