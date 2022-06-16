@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -17,6 +19,7 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ManagerService managerService;
+
     @PostMapping("/registration")
     public ResponseEntity registration(@RequestBody UserEntity user) {
         try {
