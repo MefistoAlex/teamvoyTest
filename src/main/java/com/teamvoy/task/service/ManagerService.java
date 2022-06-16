@@ -35,6 +35,7 @@ public class ManagerService {
     }
 
     public OrderEntity incomingOrder(Order order) {
+        order.setIncoming(true);
         OrderEntity entity = toEntityOrder(order);
         priceRepository.saveAll(getPriceList(order));
         return orderRepository.save(entity);
@@ -52,6 +53,7 @@ public class ManagerService {
             storage.setCount(line.getCount());
             entity.getOrderList().add(storage);
         }
+        entity.setPaid(false);
         return entity;
     }
     public List<PriceEntity> getPriceList(Order order) {
