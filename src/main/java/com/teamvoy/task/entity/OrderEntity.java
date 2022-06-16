@@ -13,7 +13,7 @@ public class OrderEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
-    @OneToMany (cascade = CascadeType.ALL, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<StorageEntity> orderList;
     private Boolean incoming;
     private Boolean paid;

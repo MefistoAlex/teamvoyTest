@@ -9,7 +9,7 @@ public class StorageEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    @JoinColumn(name  = "order_id")
+    @JoinColumn(name = "order_id")
     private OrderEntity order;
     @OneToOne
     @JoinColumn(name = "phone_id")
