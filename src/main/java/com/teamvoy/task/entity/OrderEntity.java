@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "orders")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,9 +16,18 @@ public class OrderEntity {
     @OneToMany (cascade = CascadeType.ALL, mappedBy = "order")
     private List<StorageEntity> orderList;
     private Boolean incoming;
+    private Boolean paid;
 
     public OrderEntity() {
         orderList = new ArrayList<>();
+    }
+
+    public Boolean getPaid() {
+        return paid;
+    }
+
+    public void setPaid(Boolean paid) {
+        this.paid = paid;
     }
 
     public UserEntity getUser() {
