@@ -3,7 +3,7 @@ package com.teamvoy.task.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "phones")
+
 public class PhoneEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -3,7 +3,7 @@ package com.teamvoy.task.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "storage")
+
 public class StorageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

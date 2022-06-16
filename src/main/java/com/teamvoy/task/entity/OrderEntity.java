@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "orders")
+
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
