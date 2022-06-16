@@ -42,6 +42,7 @@ public class ManagerService {
         order.getOrderList().add(orderLine);
         order.getOrderList().add(orderLine2);*/
         OrderEntity entity = toEntityOrder(order);
+        priceRepository.saveAll(getPriceList(order));
         return orderRepository.save(entity);
     }
 
@@ -59,10 +60,22 @@ public class ManagerService {
         }
         return entity;
     }
+    public List<PriceEntity> getPriceList(Order order) {
+        //get prices from order
+        List<PriceEntity> priceList =  new ArrayList<>();
+        for (OrderLine line : order.getOrderList()) {
+            PriceEntity price = new PriceEntity();
+            price.setPhone(line.getPhone());
+            price.setPrice(line.getPrice());
+            priceList.add(price);
+        }
+        return priceList;
+    }
+
 
     public List<StorageLine> getStorageStock() {
         List<StorageLine> storageLines = new ArrayList<>();
-        List<Object[]> list = storageRepository.find();
+        List<Object[]> list = storageRepository.getGoodsStock();
         for (Object[] a : list) {
             StorageLine line = new StorageLine();
             BigInteger count = (BigInteger) a[0];
