@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 
 @Service
 public class UserService {
+    //repositories
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -24,23 +25,28 @@ public class UserService {
     private StorageRepository storageRepository;
 
     public UserEntity registration(UserEntity user) throws UserAlreadyExistException {
+        //user registration
         String username = user.getUsername();
         UserEntity userEntity = userRepository.findByUsername(username);
+        //checking for dublicate username
         if (userEntity != null) {
             throw new UserAlreadyExistException("User already exist");
         }
+        //save user to DB
         return userRepository.save(user);
     }
 
     public void outgoingOrder(Order order) throws OutOfStockException {
+        // user order to purchase goods
         order.setIncoming(false);
         order.calculateTotalCost();
+        //checking for availability goods
         inStock(order);
+        //turning model to entity
         OrderEntity entity = toEntityOrder(order);
-        IncomingOrderThread incomingOrderThread = new IncomingOrderThread(orderRepository, entity);
-        incomingOrderThread.start();
-
-//        orderRepository.save(entity);
+        //creating outgoing order thread
+        outgoingOrderThread outgoingOrderThread = new outgoingOrderThread(orderRepository, entity);
+        outgoingOrderThread.start();
     }
 
     public OrderEntity toEntityOrder(Order order) {
@@ -60,16 +66,17 @@ public class UserService {
     }
 
     public void inStock(Order order) throws OutOfStockException {
+        //checking for availability goods
         for (OrderLine line : order.getOrderList()) {
             BigDecimal stock = storageRepository.getStockByPhone(line.getPhone().getId());
             if (stock == null || (stock.longValue() - line.getCount()) < 0) {
                 throw new OutOfStockException(line.getPhone().getModel() + " is out of stock");
             }
         }
-
     }
 
     public void payOrder(Long order_id) {
+        //paying order by user
         OrderEntity order = orderRepository.findById(order_id).get();
         order.setPaid(true);
         orderRepository.save(order);

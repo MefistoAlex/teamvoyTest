@@ -18,6 +18,7 @@ import java.util.List;
 
 @Service
 public class ManagerService {
+    //Repositories
     @Autowired
     private PhoneRepository phoneRepository;
     @Autowired
@@ -35,15 +36,19 @@ public class ManagerService {
     }
 
     public OrderEntity incomingOrder(Order order) {
-        order.setIncoming(true);
+        //adding goods and setting prises for manager
+        //get entity order from model
         OrderEntity entity = toEntityOrder(order);
+        //getting price list  from order and save it to DB
         priceRepository.saveAll(getPriceList(order));
+        //save order to DB
         return orderRepository.save(entity);
     }
 
     public OrderEntity toEntityOrder(Order order) {
         //convert OrderModel to OrderEntity
         OrderEntity entity = new OrderEntity();
+        //searching user in DB by id
         entity.setUser(userRepository.findById(order.getUser().getId()).get());
         entity.setIncoming(order.getIncoming());
         for (OrderLine line : order.getOrderList()) {
@@ -56,9 +61,10 @@ public class ManagerService {
         entity.setPaid(false);
         return entity;
     }
+
     public List<PriceEntity> getPriceList(Order order) {
         //get prices from order
-        List<PriceEntity> priceList =  new ArrayList<>();
+        List<PriceEntity> priceList = new ArrayList<>();
         for (OrderLine line : order.getOrderList()) {
             PriceEntity price = new PriceEntity();
             price.setPhone(line.getPhone());
@@ -70,6 +76,7 @@ public class ManagerService {
 
 
     public List<StorageLine> getStorageStock() {
+        //convert request result
         List<StorageLine> storageLines = new ArrayList<>();
         List<Object[]> list = storageRepository.getGoodsStock();
         for (Object[] a : list) {
@@ -85,10 +92,13 @@ public class ManagerService {
     }
 
     public List<PriceEntity> setPrices(List<PriceEntity> priceList) {
-       return (List<PriceEntity>) priceRepository.saveAll(priceList);
+        //saving price list to DB
+        return (List<PriceEntity>) priceRepository.saveAll(priceList);
     }
-    public Double getLastPrice(PhoneEntity phone){
+
+    public Double getLastPrice(PhoneEntity phone) {
+        //get actual price
         List<PriceEntity> list = priceRepository.findByPhone_Id(phone.getId());
-        return list.get(list.size()-1).getPrice();
+        return list.get(list.size() - 1).getPrice();
     }
 }
