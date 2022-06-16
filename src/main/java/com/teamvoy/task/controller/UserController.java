@@ -1,6 +1,7 @@
 package com.teamvoy.task.controller;
 
 import com.teamvoy.task.entity.UserEntity;
+import com.teamvoy.task.exception.OutOfStockException;
 import com.teamvoy.task.exception.UserAlreadyExistException;
 import com.teamvoy.task.model.Order;
 import com.teamvoy.task.service.ManagerService;
@@ -20,7 +21,7 @@ public class UserController {
     public ResponseEntity registration(@RequestBody UserEntity user) {
         try {
 
-           userService.registration(user);
+            userService.registration(user);
             return ResponseEntity.ok().body("User added successfully");
         } catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -28,20 +29,34 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @GetMapping("/storage")
-    public ResponseEntity getStorageStock(){
+    public ResponseEntity getStorageStock() {
         try {
             return ResponseEntity.ok().body(managerService.getStorageStock());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/order")
     public ResponseEntity incomingOrder(@RequestBody Order order) {
         try {
             userService.outgoingOrder(order);
             return ResponseEntity.ok().body("Incoming order added successfully");
-        } catch (Exception e) {
+        }catch (OutOfStockException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PostMapping("/pay")
+    public ResponseEntity payOrder(@RequestParam Long order_id){
+        try {
+            userService.payOrder(order_id);
+            return ResponseEntity.ok().body("Incoming order added successfully");
+        }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
