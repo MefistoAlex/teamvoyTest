@@ -5,8 +5,9 @@ import com.teamvoy.task.entity.UserEntity;
 public class User {
     private Long id;
     private String userName;
+
     //convert UserEntity to model
-    public static User toModel(UserEntity entity){
+    public static User toModel(UserEntity entity) {
         return new User(entity.getId(), entity.getUsername());
     }
 

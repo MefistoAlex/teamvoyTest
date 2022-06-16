@@ -1,6 +1,7 @@
 package com.teamvoy.task.model;
 
 import com.teamvoy.task.entity.PhoneEntity;
+ //class for goods list in Order model
 
 public class OrderLine {
     private PhoneEntity phone;
@@ -10,11 +11,6 @@ public class OrderLine {
     public OrderLine() {
     }
 
-    public OrderLine(PhoneEntity phone, Long count, Double price) {
-        this.phone = phone;
-        this.count = count;
-        this.price = price;
-    }
 
     public PhoneEntity getPhone() {
         return phone;

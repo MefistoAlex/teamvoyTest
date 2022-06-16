@@ -1,5 +1,5 @@
 package com.teamvoy.task.model;
-
+//model for viewing storage 
 import com.teamvoy.task.entity.PhoneEntity;
 
 public class StorageLine {
