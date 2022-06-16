@@ -1,19 +1,14 @@
 package com.teamvoy.task.repository;
 
 import com.teamvoy.task.entity.StorageEntity;
-import com.teamvoy.task.model.OrderLine;
-import com.teamvoy.task.model.StorageLine;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
-
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.util.List;
 
-public interface StorageRepository extends CrudRepository<StorageEntity,Long> {
+public interface StorageRepository extends CrudRepository<StorageEntity, Long> {
 
-
+    //select storage stocks
     @Query(value = "SELECT\n" +
             "\tsum(IF(incoming,count,-count)) as count, \n" +
             "\tstorage_entity.phone_id\n" +
@@ -24,9 +19,10 @@ public interface StorageRepository extends CrudRepository<StorageEntity,Long> {
             "\tON \n" +
             "\t\tstorage_entity.order_id = order_entity.id\n" +
             "GROUP BY\n" +
-            "\tstorage_entity.phone_id",nativeQuery = true)
+            "\tstorage_entity.phone_id", nativeQuery = true)
     List<Object[]> getGoodsStock();
 
+    //select storage stock by phone
     @Query(value = "SELECT\n" +
             "\tSUM(IF(incoming,count,-count)) as count\n" +
             "FROM\n" +
@@ -36,9 +32,8 @@ public interface StorageRepository extends CrudRepository<StorageEntity,Long> {
             "\tON \n" +
             "\t\tstorage_entity.order_id = order_entity.id\n" +
             "WHERE\n" +
-            "\tstorage_entity.phone_id = ?1",nativeQuery = true)
+            "\tstorage_entity.phone_id = ?1", nativeQuery = true)
     BigDecimal getStockByPhone(Long phoneId);
-
 
 
 }
