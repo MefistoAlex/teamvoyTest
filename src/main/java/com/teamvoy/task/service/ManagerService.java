@@ -76,16 +76,20 @@ public class ManagerService {
     }
 
     public List<PriceEntity> setPrices(List<PriceEntity> priceList) {
-        priceList = new ArrayList<>();
-        PriceEntity entity1 = new PriceEntity();
-        entity1.setPhone(phoneRepository.findById(3L).get());
-        entity1.setPrice(23.2D);
-        PriceEntity entity = new PriceEntity();
-        entity.setPhone(phoneRepository.findById(4L).get());
-        entity.setPrice(50.2D);
-
-        priceList.add(entity1);
-        priceList.add(entity);
+//        priceList = new ArrayList<>();
+//        PriceEntity entity1 = new PriceEntity();
+//        entity1.setPhone(phoneRepository.findById(3L).get());
+//        entity1.setPrice(10D);
+//        PriceEntity entity = new PriceEntity();
+//        entity.setPhone(phoneRepository.findById(4L).get());
+//        entity.setPrice(20D);
+//        PriceEntity entity2 = new PriceEntity();
+//        entity2.setPhone(phoneRepository.findById(5L).get());
+//        entity2.setPrice(30D);
+//
+//        priceList.add(entity1);
+//        priceList.add(entity);
+//        priceList.add(entity2);
 
        return (List<PriceEntity>) priceRepository.saveAll(priceList);
     }
