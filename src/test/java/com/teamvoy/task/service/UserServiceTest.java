@@ -1,6 +1,5 @@
 package com.teamvoy.task.service;
 
-import com.teamvoy.task.entity.OrderEntity;
 import com.teamvoy.task.entity.PhoneEntity;
 import com.teamvoy.task.entity.UserEntity;
 import com.teamvoy.task.exception.OutOfStockException;
@@ -9,13 +8,9 @@ import com.teamvoy.task.model.Order;
 import com.teamvoy.task.model.OrderLine;
 import com.teamvoy.task.model.User;
 import com.teamvoy.task.repository.*;
-import org.aspectj.lang.annotation.After;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Executable;
