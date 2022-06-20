@@ -10,10 +10,11 @@ import com.teamvoy.task.model.User;
 import com.teamvoy.task.repository.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.reflect.Executable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,11 +70,8 @@ class UserServiceTest {
         orderList.add(orderLine);
         order.setOrderList(orderList);
         //when
-        try {
-            userService.inStock(order);
-        } catch (OutOfStockException e) {
-            Assertions.assertTrue(true);
-        }
+        Executable executable = ()->userService.inStock(order);
+        Assertions.assertThrows(OutOfStockException.class, executable);
     }
 
 }
