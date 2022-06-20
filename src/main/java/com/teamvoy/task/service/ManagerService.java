@@ -98,6 +98,9 @@ public class ManagerService {
     public Double getLastPrice(PhoneEntity phone) {
         //get actual price
         List<PriceEntity> list = priceRepository.findByPhone_Id(phone.getId());
+        if (list.isEmpty()){
+            return 0D;
+        }
         return list.get(list.size() - 1).getPrice();
     }
 }
